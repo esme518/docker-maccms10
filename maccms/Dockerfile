@@ -20,13 +20,15 @@ RUN set -ex \
         --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
 
-ENV CMS_WWW_ROOT /var/www/html
+ENV WWW_ROOT /var/www/html
+ENV REPO_URL https://github.com/magicblack/maccms10.git
 
 RUN set -ex \
     && cd /tmp \
-    && git clone https://github.com/magicblack/maccms10.git \
-    && mv maccms10/* ${CMS_WWW_ROOT} \
-    && cd ${CMS_WWW_ROOT} \
+    && git clone ${REPO_URL} \
+    && mv maccms10/* ${WWW_ROOT} \
+    && rm -rf /tmp/maccms10
+    && cd ${WWW_ROOT} \
     && mv admin.php cmsadmin.php \
     && chmod a+rw -R application runtime upload static addons \
     && apt-get clean \
