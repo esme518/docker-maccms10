@@ -8,8 +8,8 @@ services:
         ports:
             - 8080:80
     maccms-db:
-        image: mysql:5.7
+        image: mariadb:10.3
         container_name: maccms-db
         restart: always
         environment:
-            - MYSQL_ROOT_PASSWORD=maccms_mysql_password
+            - MARIADB_ROOT_PASSWORD=maccms_db_password

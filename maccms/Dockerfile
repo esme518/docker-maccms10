@@ -27,7 +27,7 @@ RUN set -ex \
     && cd /tmp \
     && git clone ${REPO_URL} \
     && mv maccms10/* ${WWW_ROOT} \
-    && rm -rf /tmp/maccms10
+    && rm -rf /tmp/maccms10 \
     && cd ${WWW_ROOT} \
     && mv admin.php cmsadmin.php \
     && chmod a+rw -R application runtime upload static addons \
