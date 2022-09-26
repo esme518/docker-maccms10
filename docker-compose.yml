@@ -12,4 +12,4 @@ services:
         container_name: maccms-db
         restart: always
         environment:
-            - MYSQL_ROOT_PASSWORD=maccms
+            - MYSQL_ROOT_PASSWORD=maccms_mysql_password
