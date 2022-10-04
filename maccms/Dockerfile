@@ -8,9 +8,10 @@ RUN set -ex \
     && apt-get update && apt-get install -y \
        git \
        unzip \
-       libjpeg-dev \
-       libzip-dev \
        libfreetype-dev \
+       libjpeg-dev \
+       libwebp-dev \
+       libzip-dev \
     && docker-php-ext-install mysqli \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install fileinfo \
@@ -18,7 +19,10 @@ RUN set -ex \
     && docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd
+        --with-webp \
+    && docker-php-ext-install -j$(nproc) gd \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV WWW_ROOT /var/www/html
 ENV REPO_URL https://github.com/magicblack/maccms10.git
@@ -31,7 +35,6 @@ RUN set -ex \
     && cd ${WWW_ROOT} \
     && mv admin.php cmsadmin.php \
     && chmod a+rw -R application runtime upload static addons \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 EXPOSE 80/tcp
