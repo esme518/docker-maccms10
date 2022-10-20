@@ -4,6 +4,10 @@
 
 FROM php:7.4-apache
 
+COPY docker-entrypoint.sh /entrypoint.sh
+
+ENV REPO_URL https://github.com/magicblack/maccms10.git
+
 RUN set -ex \
     && apt-get update && apt-get install -y \
        git \
@@ -22,19 +26,12 @@ RUN set -ex \
         --with-webp \
     && docker-php-ext-install -j$(nproc) gd \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-ENV WWW_ROOT /var/www/html
-ENV REPO_URL https://github.com/magicblack/maccms10.git
-
-RUN set -ex \
-    && cd /tmp \
-    && git clone ${REPO_URL} \
-    && mv maccms10/* ${WWW_ROOT} \
-    && rm -rf /tmp/maccms10 \
-    && cd ${WWW_ROOT} \
-    && mv admin.php cmsadmin.php \
-    && chmod a+rw -R application runtime upload static addons \
+    && rm -rf /var/lib/apt/lists/* \
     && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-EXPOSE 80/tcp
+VOLUME /var/www/html
+
+EXPOSE 80
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["apache2-foreground"]
