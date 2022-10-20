@@ -1,15 +1,18 @@
 version: '3.3'
 services:
     maccms:
-        build:
-            context: ./maccms
+        image: esme518/docker-maccms10
         container_name: maccms
         restart: always
+        volumes:
+            - ./data:/var/www/html
         ports:
             - 8080:80
     maccms-db:
         image: mariadb:10.3
         container_name: maccms-db
         restart: always
+        volumes:
+            - ./db:/var/lib/mysql
         environment:
             - MARIADB_ROOT_PASSWORD=maccms_db_password
