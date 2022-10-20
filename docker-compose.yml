@@ -13,6 +13,6 @@ services:
         container_name: maccms-db
         restart: always
         volumes:
-            - ./db:/var/lib/mysql
+            - ./mysql:/var/lib/mysql
         environment:
             - MARIADB_ROOT_PASSWORD=maccms_db_password
