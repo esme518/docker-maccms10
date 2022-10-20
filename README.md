@@ -2,5 +2,5 @@
 
 **Run the following command:**
 ```
-docker compose up --build -d
+docker compose up -d
 ```
