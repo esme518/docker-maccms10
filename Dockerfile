@@ -31,6 +31,8 @@ RUN set -ex \
 
 VOLUME /var/www/html
 
+ENV ADMIN_PHP cmsadmin.php
+
 EXPOSE 80
 
 ENTRYPOINT ["/entrypoint.sh"]
