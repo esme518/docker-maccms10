@@ -26,8 +26,11 @@ RUN set -ex \
         --with-webp \
     && docker-php-ext-install -j$(nproc) gd \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+    && rm -rf /var/lib/apt/lists/*
+
+RUN set -ex \
+    && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 VOLUME /var/www/html
 
