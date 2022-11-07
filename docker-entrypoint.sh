@@ -2,7 +2,7 @@
 set -e
 
 if [ ! -f index.php ]; then
-    git clone -q ${REPO_URL} .
+    git clone --depth 1 -q ${REPO_URL} .
     rm -rf .git*
     chmod a+rw -R application runtime upload static addons
     echo "maccms10 downloaded"
