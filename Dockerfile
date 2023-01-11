@@ -16,10 +16,7 @@ RUN set -ex \
        libjpeg-dev \
        libwebp-dev \
        libzip-dev \
-    && docker-php-ext-install mysqli \
-    && docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install fileinfo \
-    && docker-php-ext-install zip \
+    && docker-php-ext-install -j$(nproc) mysqli pdo_mysql sockets zip \
     && docker-php-ext-configure gd \
         --with-freetype \
         --with-jpeg \
