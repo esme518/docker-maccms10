@@ -2,6 +2,8 @@
 # Dockerfile for MACCMS
 #
 
+# syntax=docker/dockerfile:1
+
 FROM php:7.4-apache
 
 COPY docker-entrypoint.sh /entrypoint.sh
@@ -27,7 +29,15 @@ RUN set -ex \
 
 RUN set -ex \
     && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    && a2enmod remoteip \
+    && sed -i 's/%h/%a/g' /etc/apache2/apache2.conf \
     && echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+COPY <<EOT /etc/apache2/mods-enabled/remoteip.conf
+RemoteIPHeader X-Forwarded-For
+RemoteIPTrustedProxy 127.0.0.0/8
+RemoteIPTrustedProxy ::1/128
+EOT
 
 VOLUME /var/www/html
 
