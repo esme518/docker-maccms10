@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -eu
 
 if [ ! -f index.php ]; then
     git clone --depth 1 -q ${REPO_URL} .
