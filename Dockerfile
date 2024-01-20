@@ -24,8 +24,9 @@ RUN set -ex \
         --with-jpeg \
         --with-webp \
     && docker-php-ext-install -j$(nproc) gd \
+    && apt-get autoremove -y \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /tmp/* /var/lib/apt/lists/*
 
 RUN set -ex \
     && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
