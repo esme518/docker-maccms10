@@ -161,7 +161,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
       - name: Create and push manifest images [latest]
-        uses: Noelware/docker-manifest-action@master
+        uses: Noelware/docker-manifest-action@0.4.3
         with:
             inputs: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-arm64,${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest-amd64
