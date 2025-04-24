@@ -17,14 +17,12 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  keepalive-job:
-    name: Keepalive Workflow
+  workflow-keepalive:
     runs-on: ubuntu-latest
     permissions:
       actions: write
     steps:
-      - uses: actions/checkout@v4
-      - uses: gautamkrishnar/keepalive-workflow@v2
+      - uses: liskin/gh-workflow-keepalive@v1
 
   build-arm64-image:
 
