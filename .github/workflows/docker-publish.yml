@@ -18,6 +18,7 @@ env:
 
 jobs:
   workflow-keepalive:
+    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
     permissions:
       actions: write
